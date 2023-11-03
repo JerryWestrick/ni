@@ -1,0 +1,306 @@
+{
+    "sshd": {
+        "connections": [
+            {
+                "local_address": "0.0.0.0",
+                "local_port": "22",
+                "local_service": "ssh",
+                "protocol": "tcp",
+                "remote_address": "0.0.0.0",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            },
+            {
+                "local_address": "::",
+                "local_port": "22",
+                "local_service": "ssh",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            }
+        ],
+        "gid": "0",
+        "program_name": "sshd",
+        "uid": "0",
+        "username": "root"
+    },
+    "xrdp-sesman": {
+        "connections": [
+            {
+                "local_address": "::1",
+                "local_port": "3350",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "localhost",
+                "remote_host": ""
+            }
+        ],
+        "gid": "0",
+        "program_name": "xrdp-sesman",
+        "uid": "0",
+        "username": "root"
+    },
+    "java": {
+        "connections": [
+            {
+                "local_address": "::ffff:127.0.0.1",
+                "local_port": "63342",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            },
+            {
+                "local_address": "::ffff:127.0.0.1",
+                "local_port": "63330",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            }
+        ],
+        "gid": "1000",
+        "program_name": "java",
+        "uid": "1000",
+        "username": "jerry"
+    },
+    "postgres": {
+        "connections": [
+            {
+                "local_address": "127.0.0.1",
+                "local_port": "5432",
+                "local_service": "postgresql",
+                "protocol": "tcp",
+                "remote_address": "0.0.0.0",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            },
+            {
+                "local_address": "::1",
+                "local_port": "5432",
+                "local_service": "postgresql",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "localhost",
+                "remote_host": ""
+            }
+        ],
+        "gid": "136",
+        "program_name": "postgres",
+        "uid": "129",
+        "username": "postgres"
+    },
+    "xrdp": {
+        "connections": [
+            {
+                "local_address": "::",
+                "local_port": "3389",
+                "local_service": "ms-wbt-server",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            }
+        ],
+        "gid": "135",
+        "program_name": "xrdp",
+        "uid": "128",
+        "username": "xrdp"
+    },
+    "cupsd": {
+        "connections": [
+            {
+                "local_address": "127.0.0.1",
+                "local_port": "631",
+                "local_service": "ipp",
+                "protocol": "tcp",
+                "remote_address": "0.0.0.0",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            },
+            {
+                "local_address": "::1",
+                "local_port": "631",
+                "local_service": "ipp",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "localhost",
+                "remote_host": ""
+            }
+        ],
+        "gid": "0",
+        "program_name": "cupsd",
+        "uid": "0",
+        "username": "root"
+    },
+    "goa-daemon": {
+        "connections": [
+            {
+                "local_address": "2806:10be:9:9ac5:64e6:6be3:7611:4bf1",
+                "local_port": "36776",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "2607:f8b0:4008:80b::200d",
+                "remote_port": "443",
+                "remote_service": "https",
+                "state": "ESTABLISHED",
+                "local_host": "2806-10be-0009-9ac5-64e6-6be3-7611-4bf1.ipv6.infinitum.net.mx",
+                "remote_host": "mia07s61-in-x0d.1e100.net"
+            }
+        ],
+        "gid": "1000",
+        "program_name": "goa-daemon",
+        "uid": "1000",
+        "username": "jerry"
+    },
+    "thunderbird": {
+        "connections": [
+            {
+                "local_address": "192.168.1.88",
+                "local_port": "47680",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "23.81.68.39",
+                "remote_port": "993",
+                "remote_service": "imaps",
+                "state": "ESTABLISHED",
+                "local_host": "desktop",
+                "remote_host": ""
+            },
+            {
+                "local_address": "192.168.1.88",
+                "local_port": "50500",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "74.208.5.6",
+                "remote_port": "993",
+                "remote_service": "imaps",
+                "state": "ESTABLISHED",
+                "local_host": "desktop",
+                "remote_host": "imap.perfora.net"
+            }
+        ],
+        "gid": "1000",
+        "program_name": "thunderbird",
+        "uid": "1000",
+        "username": "jerry"
+    },
+    "whatsdesk": {
+        "connections": [
+            {
+                "local_address": "2806:10be:9:9ac5:64e6:6be3:7611:4bf1",
+                "local_port": "34458",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "2a03:2880:f22c:c5:face:b00c:0:167",
+                "remote_port": "443",
+                "remote_service": "https",
+                "state": "ESTABLISHED",
+                "local_host": "2806-10be-0009-9ac5-64e6-6be3-7611-4bf1.ipv6.infinitum.net.mx",
+                "remote_host": "whatsapp-cdn6-shv-01-mia3.fbcdn.net"
+            }
+        ],
+        "gid": "1000",
+        "program_name": "whatsdesk",
+        "uid": "1000",
+        "username": "jerry"
+    },
+    "jetbrains-toolb": {
+        "connections": [
+            {
+                "local_address": "::ffff:127.0.0.1",
+                "local_port": "52829",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "::",
+                "remote_port": "0",
+                "remote_service": "",
+                "state": "LISTEN",
+                "local_host": "",
+                "remote_host": ""
+            }
+        ],
+        "gid": "1000",
+        "program_name": "jetbrains-toolb",
+        "uid": "1000",
+        "username": "jerry"
+    },
+    "chrome": {
+        "connections": [
+            {
+                "local_address": "192.168.1.88",
+                "local_port": "37676",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "142.250.64.142",
+                "remote_port": "443",
+                "remote_service": "https",
+                "state": "ESTABLISHED",
+                "local_host": "desktop",
+                "remote_host": "mia09s21-in-f14.1e100.net"
+            },
+            {
+                "local_address": "192.168.1.88",
+                "local_port": "36816",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "192.168.1.66",
+                "remote_port": "8009",
+                "remote_service": "",
+                "state": "ESTABLISHED",
+                "local_host": "desktop",
+                "remote_host": ""
+            },
+            {
+                "local_address": "2806:10be:9:9ac5:64e6:6be3:7611:4bf1",
+                "local_port": "42060",
+                "local_service": "",
+                "protocol": "tcp",
+                "remote_address": "2607:f8b0:400c:c1a::bc",
+                "remote_port": "5228",
+                "remote_service": "gcm-5228",
+                "state": "ESTABLISHED",
+                "local_host": "2806-10be-0009-9ac5-64e6-6be3-7611-4bf1.ipv6.infinitum.net.mx",
+                "remote_host": "uh-in-f188.1e100.net"
+            }
+        ],
+        "gid": "1000",
+        "program_name": "chrome",
+        "uid": "1000",
+        "username": "jerry"
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "sshd": {
+        "description": "OpenSSH server daemon",
+        "link": "https://www.openssh.com/",
+        "checks": [
+            "LISTEN_ON:22",
+            "VALIDATE_CONN:local=[0.0.0.0,::]:22"
+        ]
+    },
+    "xrdp": {
+        "description": "An open-source Remote Desktop Protocol server",
+        "link": "https://www.xrdp.org/",
+        "checks": [
+            "LISTEN_ON:3389",
+            "VALIDATE_CONN:local=[::]:3389"
+        ]
+    },
+    "chrome": {
+        "description": "Google Chrome web browser",
+        "link": "https://www.google.com/chrome/",
+        "checks": [
+            "NO_LISTEN",
+            "NON_SYS_USER"
+        ]
+    },
+    "postgres": {
+        "description": "PostgreSQL Database Server",
+        "link": "https://www.postgresql.org/",
+        "checks": [
+            "LISTEN_ON:5432",
+            "VALIDATE_CONN:local=[127.0.0.1,::1]:5432",
+            "SYS_USER",
+            "VALIDATE_USERNAME:postgres"
+        ]
+    }
+}
