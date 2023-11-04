@@ -1,6 +1,7 @@
 import json
 
 
+
 def extract_host_port(data):
     """Extracts host and port from a data string of format [host]:port."""
     if "]:" in data:  # Both host and port are provided
