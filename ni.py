@@ -21,7 +21,7 @@ def format_connection(con: dict) -> str:
 
 
 def format_output(results):
-    pannels = []
+    panels = []
     for name, result in results.items():
         formatted_lines = [f"Program: [{color_text}]{result['program_name']}[/{color_text}]",
                            f"Descrip: [{color_text}]{result['description']}[/{color_text}]",
@@ -34,11 +34,11 @@ def format_output(results):
             my_color = color_text if chk['result'] == "PASS" else "red1"
             formatted_lines.append(f"[bold {my_color}]-{chk['result']}- : {chk['description']}[/bold {my_color}]")
 
-        pannels.append(Panel("\n".join(formatted_lines),
+        panels.append(Panel("\n".join(formatted_lines),
                              style="cornflower_blue on grey0",
                              title=result['program_name'],
                              title_align="left"))
-    return pannels
+    return panels
 
 
 if __name__ == '__main__':
