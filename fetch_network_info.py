@@ -43,17 +43,20 @@ def get_hostname_from_ip(ip):
     try:
         hostname, _, _ = socket.gethostbyaddr(ip)
         return hostname
-    except socket.herror:
+    except (socket.herror, OSError):
         return ""
 
 
+program_items = ["gid", "program_name", "uid", "username"]
+connection_items = ["local_address", "local_port", "local_service", "protocol",
+                    "remote_address", "remote_port", "remote_service", "state"]
+
+
 def gather_programs(connection_list):
-    program_items = ["gid", "program_name", "uid", "username"]
-    connection_items = ["local_address", "local_port", "local_service", "protocol",
-                        "remote_address", "remote_port", "remote_service", "state"]
     last_program_name = ""
     program = None
     programs = {}
+
 
     for con in connection_list:
         if last_program_name != con["program_name"]:

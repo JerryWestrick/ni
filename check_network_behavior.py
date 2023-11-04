@@ -1,6 +1,7 @@
 import json
 
 
+
 def extract_host_port(data):
     """Extracts host and port from a data string of format [host]:port."""
     if "]:" in data:  # Both host and port are provided
@@ -16,26 +17,27 @@ def check_network_behavior(network_behavior, network_info):
     results = {}
 
     # Helper function to handle LISTEN_ON check.
-    def check_listen_on(program_info, check_type, check_value, pgm_results):
+    def check_listen_on(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
         ports = [conn['local_port'] for conn in program_info['connections'] if conn['state'] == 'LISTEN']
-        if check_value in ports:
+        if c_value in ports:
             result = "PASS"
         else:
             result = "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+        return [{"check": check_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle NO_LISTEN check.
-    def check_no_listen(program_info, check_type, check_value, pgm_results):
+    def check_no_listen(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
         ports = [conn['local_port'] for conn in program_info['connections'] if conn['state'] == 'LISTEN']
         if not ports:
             result = "PASS"
         else:
             result = "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+        return [{"check": c_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle VALIDATE_CONN check.
-    def check_validate_conn(program_info, check_type, check_value, pgm_results):
-        parts = check_value.split(";")
+    def check_validate_conn(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
+        results = []
+        parts = c_value.split(";")
         local_data, remote_data = None, None
         for part in parts:
             if part.startswith('local'):
@@ -51,58 +53,71 @@ def check_network_behavior(network_behavior, network_info):
                        (not remote_addresses or conn['remote_address'] in remote_addresses.split(",")) and
                        (not remote_port or conn['remote_port'] == remote_port)]
         if connections:
-            pgm_results.append({"check": check_type, "result": "PASS", "description": f"{check_type}:{check_value}"})
+            results.append({"check": c_type, "result": "PASS", "description": f"{c_type}:{c_value}"})
         else:
-            pgm_results.append({"check": check_type, "result": "FAIL", "description": f"{check_type}:{check_value}"})
+            results.append({"check": c_type, "result": "FAIL", "description": f"{c_type}:{c_value}"})
+
+        return results
 
     # Helper function to handle NON_SYS_USER check.
-    def check_non_sys_user(program_info, check_type, check_value, pgm_results):
+    def check_non_sys_user(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
         result = "PASS" if int(program_info['uid']) > 999 else "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+        return [{"check": c_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle SYS_USER check.
-    def check_sys_user(program_info, check_type, check_value, pgm_results):
+    def check_sys_user(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
         result = "PASS" if int(program_info['uid']) < 1000 else "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+        return [{"check": c_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle VALIDATE_USERNAME check.
-    def check_validate_username(program_info, check_type, check_value, pgm_results):
-        result = "PASS" if program_info['username'] == check_value else "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+    def check_validate_username(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
+        result = "PASS" if program_info['username'] == c_value else "FAIL"
+        return [{"check": c_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle VALIDATE_UID check.
-    def check_validate_uid(program_info, check_type, check_value, pgm_results):
-        result = "PASS" if program_info['uid'] == check_value else "FAIL"
-        pgm_results.append({"check": check_type, "result": result, "description": f'{check_type}:{check_value}'})
+    def check_validate_uid(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
+        result = "PASS" if program_info['uid'] == c_value else "FAIL"
+        return [{"check": c_type, "result": result, "description": f'{c_type}:{c_value}'}]
 
     # Helper function to handle Unknown check.
-    def check_unknown(program_info, check_type, check_value, pgm_results):
-        pgm_results.append({"check": check_type, "result": "FAIL", "description": f'{check_type}:{check_value}'})
+    def check_unknown(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
+        return [{"check": c_type, "result": "FAIL", "description": f'{c_type}:{c_value}'}]
 
-    helper_dict = {'LISTEN_ON': check_listen_on,
-                   'NO_LISTEN': check_no_listen,
-                   'VALIDATE_CONN': check_validate_conn,
-                   'NON_SYS_USER': check_non_sys_user,
-                   'SYS_USER': check_sys_user,
-                   'VALIDATE_USERNAME': check_validate_username,
-                   'VALIDATE_UID': check_validate_uid,
-                   'UNKNOWN': check_unknown
-                   }
+    def check_define(program_info: dict[str, dict], c_type: str, c_value: str) -> list[dict]:
+        return [{"check": c_type, "result": "FAIL", "description": f'No {c_type} for {program_info["program_name"]}'}]
+
+    helper_dict: dict[str, any] = {
+        'LISTEN_ON': check_listen_on,
+        'NO_LISTEN': check_no_listen,
+        'VALIDATE_CONN': check_validate_conn,
+        'NON_SYS_USER': check_non_sys_user,
+        'SYS_USER': check_sys_user,
+        'VALIDATE_USERNAME': check_validate_username,
+        'VALIDATE_UID': check_validate_uid,
+        'DEFINE': check_define,
+        'UNKNOWN': check_unknown
+    }
 
     # Iterate over each program in network_info.
-    for pgm, info in network_info.items():
-        # If the program has a defined expected behavior in network_behavior.
-        if pgm in network_behavior:
-            checks = network_behavior[pgm]['checks']
-            pgm_results = []
-            for check in checks:
-                # Split check into type and value.
-                check_type, check_value = check.split(":", 1) if ":" in check else (check, "")
+    for pgm_name, pgm_results in network_info.items():
+        behavior = network_behavior.get(pgm_name, {"checks": ["DEFINE"], "description": "", "link": ""})
+        pgm_results['description'] = behavior['description']
+        pgm_results['link'] = behavior['link']
+        checks = behavior['checks']
+        pgm_checks = []
 
-                # Using the helper_dict call the corresponding check_routine
-                helper_rtn = helper_dict.get(check_type, "UNKNOWN")
-                helper_rtn(info, check_type, check_value, pgm_results)
-            results[pgm] = pgm_results
+        for check in checks:
+            # Split check into type and value.
+            check_type, check_value = check.split(":", 1) if ":" in check else (check, "")
+
+            # Using the helper_dict call the corresponding check_routine
+            helper_rtn = helper_dict.get(check_type, "UNKNOWN")
+            msgs = helper_rtn(pgm_results, check_type, check_value)
+            pgm_checks.extend(msgs)
+
+        pgm_results['checks'] = pgm_checks
+        results[pgm_name] = pgm_results
+
     return results
 
 
